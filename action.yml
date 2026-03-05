@@ -1,0 +1,63 @@
+name: "GuardBot - AI Code Review"
+description: "AI-powered code reviews for every pull request. Security, code smells, performance — in seconds."
+author: "jonasmeier294"
+
+branding:
+  icon: "shield"
+  color: "purple"
+
+inputs:
+  github_token:
+    description: "GitHub token for posting reviews"
+    required: true
+    default: ${{ github.token }}
+  openai_key:
+    description: "OpenAI API key for AI-powered analysis (optional, falls back to pattern matching)"
+    required: false
+  openai_model:
+    description: "OpenAI model to use"
+    required: false
+    default: "gpt-4o-mini"
+  anthropic_key:
+    description: "Anthropic API key (alternative to OpenAI)"
+    required: false
+  anthropic_model:
+    description: "Anthropic model to use"
+    required: false
+    default: "claude-sonnet-4-20250514"
+  config_path:
+    description: "Path to .guardbot.yml config file"
+    required: false
+    default: ".guardbot.yml"
+  review_level:
+    description: "Review depth: quick, standard, thorough"
+    required: false
+    default: "standard"
+  post_as:
+    description: "How to post results: comment, review, check-run"
+    required: false
+    default: "comment"
+  ignore_patterns:
+    description: "Glob patterns of files to ignore (comma-separated)"
+    required: false
+    default: "*.lock,*.min.js,*.min.css,dist/**,build/**,node_modules/**"
+  max_files:
+    description: "Maximum number of files to review"
+    required: false
+    default: "30"
+  fail_on:
+    description: "Fail the check on: none, critical, warning, info"
+    required: false
+    default: "none"
+
+outputs:
+  findings_count:
+    description: "Total number of findings"
+  critical_count:
+    description: "Number of critical findings"
+  review_url:
+    description: "URL of the posted review comment"
+
+runs:
+  using: "node20"
+  main: "action/dist/index.js"
