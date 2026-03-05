@@ -1,0 +1,18 @@
+{
+  "name": "CodeGuard Bot",
+  "url": "https://github.com/jonasmeier294/codeguard",
+  "hook_attributes": {
+    "url": "https://codeguard.dev/api/webhook/github"
+  },
+  "redirect_url": "https://codeguard.dev/api/auth/callback/github",
+  "callback_urls": ["https://codeguard.dev/api/auth/callback/github"],
+  "public": true,
+  "default_permissions": {
+    "pull_requests": "write",
+    "contents": "read",
+    "metadata": "read"
+  },
+  "default_events": [
+    "pull_request"
+  ]
+}
