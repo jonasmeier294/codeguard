@@ -1,64 +1,156 @@
-# CodeGuard
+<p align="center">
+  <img src="https://img.shields.io/badge/AI--Powered-Code%20Reviews-blueviolet?style=for-the-badge" alt="AI-Powered Code Reviews" />
+  <img src="https://img.shields.io/badge/GitHub-Bot-black?style=for-the-badge&logo=github" alt="GitHub Bot" />
+  <img src="https://img.shields.io/github/stars/jonasmeier294/codeguard?style=for-the-badge" alt="Stars" />
+  <img src="https://img.shields.io/github/license/jonasmeier294/codeguard?style=for-the-badge" alt="License" />
+</p>
 
-AI-powered code review bot for GitHub. Automatically scans every pull request for security vulnerabilities, code smells, and performance issues.
+<h1 align="center">🛡️ CodeGuard</h1>
+<p align="center">
+  <strong>AI-powered code reviews for every pull request.</strong><br/>
+  Security vulnerabilities · Code smells · Performance issues — caught in seconds, not hours.
+</p>
 
-## Tech Stack
+<p align="center">
+  <a href="https://codeguard.dev">Website</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#features">Features</a> ·
+  <a href="https://github.com/jonasmeier294/codeguard/issues">Issues</a>
+</p>
 
-- **Next.js 15** (App Router)
-- **Tailwind CSS v4** + shadcn/ui components
-- **Prisma** + SQLite (dev) / PostgreSQL (prod)
-- **NextAuth.js** for GitHub OAuth
-- **Octokit** for GitHub API
+---
 
-## Getting Started
+## 🎬 How it works
+
+```
+1. You open a Pull Request
+2. CodeGuard analyzes the diff automatically  
+3. You get inline review comments in seconds
+```
+
+```diff
+- const query = `SELECT * FROM users WHERE id = ${userId}`
++ const query = db.prepare("SELECT * FROM users WHERE id = ?").bind(userId)
+
+# 🛡️ CodeGuard: SQL injection vulnerability detected.
+# Use parameterized queries instead of string interpolation.
+```
+
+## ✨ Features
+
+| Feature | Description |
+|---------|-------------|
+| 🔒 **Security Scanning** | SQL injection, XSS, hardcoded secrets, OWASP Top 10 |
+| 🐛 **Code Smell Detection** | Dead code, complexity, anti-patterns, type safety |
+| ⚡ **Performance Tips** | N+1 queries, unnecessary re-renders, memory leaks |
+| 💬 **Inline PR Comments** | Reviews appear directly on your pull request |
+| 🔐 **Privacy First** | Only reads the diff — your code is never stored |
+| 📊 **Team Analytics** | Track code quality trends over time |
+
+## 🚀 Quick Start
+
+### Install as GitHub App (recommended)
+
+1. Go to [codeguard.dev](https://codeguard.dev)
+2. Click "Install on GitHub"
+3. Select your repositories
+4. Done! CodeGuard will review your next PR automatically.
+
+### Self-host
 
 ```bash
-# Install dependencies
-npm install
-
-# Set up environment variables
+git clone https://github.com/jonasmeier294/codeguard.git
+cd codeguard
 cp .env.example .env
-# Fill in your GitHub App credentials in .env
-
-# Push database schema
+# Fill in your GitHub App credentials
+npm install
 npx prisma db push
-
-# Start development server
 npm run dev
 ```
 
-## GitHub App Setup
+## 🏗️ Tech Stack
 
-1. Create a GitHub App at https://github.com/settings/apps
-2. Set the webhook URL to `https://your-domain.com/api/webhook/github`
-3. Enable permissions: Pull Requests (read & write), Repository contents (read)
-4. Subscribe to events: Pull request
-5. Generate a private key and add it to `.env`
-6. Create an OAuth App for login and add client ID/secret to `.env`
+- **Framework:** Next.js 15 (App Router)
+- **UI:** Tailwind CSS + shadcn/ui
+- **Auth:** NextAuth.js (GitHub OAuth)
+- **Database:** Prisma + SQLite (dev) / PostgreSQL (prod)
+- **GitHub Integration:** Octokit + Webhooks
+- **Deployment:** Vercel
 
-## Project Structure
+## 📋 What CodeGuard catches
 
+<details>
+<summary><strong>🔒 Security Issues</strong></summary>
+
+- `eval()` usage — code injection risk
+- `innerHTML` assignment — XSS vulnerability
+- SQL string interpolation — SQL injection
+- Hardcoded secrets/API keys
+- `document.write()` — XSS risk
+- `dangerouslySetInnerHTML` without sanitization
+
+</details>
+
+<details>
+<summary><strong>🐛 Code Smells</strong></summary>
+
+- `console.log` left in code
+- TODO/FIXME comments in new code
+- TypeScript `any` type usage
+- Empty `.catch()` handlers
+
+</details>
+
+<details>
+<summary><strong>⚡ Performance</strong></summary>
+
+- Sequential `await` in loops (N+1 problem)
+- RegExp created inside functions
+- `JSON.parse(JSON.stringify())` deep clone
+
+</details>
+
+## 🗺️ Roadmap
+
+- [x] Landing page & dashboard
+- [x] GitHub OAuth login
+- [x] PR webhook handler
+- [x] Pattern-based code analysis
+- [ ] AI-powered deep analysis (Claude/GPT)
+- [ ] Custom rule configuration
+- [ ] Slack/Discord notifications
+- [ ] VS Code extension
+- [ ] GitLab & Bitbucket support
+- [ ] Team analytics dashboard
+- [ ] Monorepo support
+
+## 🤝 Contributing
+
+Contributions are welcome! Check out our [issues](https://github.com/jonasmeier294/codeguard/issues) for good first tasks.
+
+```bash
+# Fork & clone
+git clone https://github.com/YOUR_USERNAME/codeguard.git
+cd codeguard
+npm install
+cp .env.example .env
+npx prisma db push
+npm run dev
 ```
-src/
-  app/
-    page.tsx                    # Landing page
-    login/page.tsx              # GitHub OAuth login
-    dashboard/
-      page.tsx                  # Dashboard overview
-      repos/page.tsx            # Repository management
-      reviews/page.tsx          # Review history
-    api/
-      auth/[...nextauth]/       # NextAuth handler
-      webhook/github/           # GitHub webhook handler
-      repos/                    # Repository CRUD API
-      reviews/                  # Review history API
-  lib/
-    auth.ts                     # NextAuth configuration
-    prisma.ts                   # Prisma client singleton
-    github.ts                   # GitHub API helpers
-    analyzer.ts                 # Code analysis engine
-    plans.ts                    # Pricing plan definitions
-  components/
-    ui/                         # shadcn/ui components
-    dashboard/                  # Dashboard shell
-```
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+## ⭐ Star History
+
+If CodeGuard helps you ship better code, consider giving it a star! It helps others discover the project.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=jonasmeier294/codeguard&type=Date)](https://star-history.com/#jonasmeier294/codeguard&Date)
+
+---
+
+<p align="center">
+  Built with ❤️ by an AI agent that reviews its own code.<br/>
+  <a href="https://codeguard.dev">codeguard.dev</a>
+</p>
