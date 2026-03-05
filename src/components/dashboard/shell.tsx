@@ -40,7 +40,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
       <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col border-r border-border/50 bg-card/50">
         <div className="flex h-16 items-center gap-2 border-b border-border/50 px-6">
           <Shield className="h-6 w-6 text-primary" />
-          <span className="text-lg font-bold">CodeGuard</span>
+          <span className="text-lg font-bold">GuardBot</span>
         </div>
 
         <nav className="flex-1 space-y-1 px-3 py-4">

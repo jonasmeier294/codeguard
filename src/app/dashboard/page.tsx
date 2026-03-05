@@ -37,7 +37,7 @@ export default async function DashboardPage() {
     <div>
       <h1 className="text-3xl font-bold">Dashboard</h1>
       <p className="mt-1 text-muted-foreground">
-        Overview of your CodeGuard activity.
+        Overview of your GuardBot activity.
       </p>
 
       <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">

@@ -35,7 +35,7 @@ export default function ReviewsPage() {
     <div>
       <h1 className="text-3xl font-bold">Review History</h1>
       <p className="mt-1 text-muted-foreground">
-        All code reviews performed by CodeGuard.
+        All code reviews performed by GuardBot.
       </p>
 
       <div className="mt-8 space-y-3">

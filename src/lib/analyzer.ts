@@ -180,12 +180,12 @@ export function analyzeFiles(files: PullRequestFile[]): Finding[] {
 export function formatReviewComment(findings: Finding[]): string {
   if (findings.length === 0) {
     return [
-      "## :shield: CodeGuard Review",
+      "## :shield: GuardBot Review",
       "",
       ":white_check_mark: **No issues found!** Your code looks clean.",
       "",
       "---",
-      "*Automated review by [CodeGuard](https://codeguard.dev)*",
+      "*Automated review by [GuardBot](https://guardbot.dev)*",
     ].join("\n");
   }
 
@@ -194,7 +194,7 @@ export function formatReviewComment(findings: Finding[]): string {
   const infos = findings.filter((f) => f.severity === "info");
 
   const lines: string[] = [
-    "## :shield: CodeGuard Review",
+    "## :shield: GuardBot Review",
     "",
     `Found **${findings.length}** issue${findings.length === 1 ? "" : "s"}:`,
     `- :red_circle: ${critical.length} critical`,
@@ -224,7 +224,7 @@ export function formatReviewComment(findings: Finding[]): string {
   }
 
   lines.push("---");
-  lines.push("*Automated review by [CodeGuard](https://codeguard.dev)*");
+  lines.push("*Automated review by [GuardBot](https://guardbot.dev)*");
 
   return lines.join("\n");
 }

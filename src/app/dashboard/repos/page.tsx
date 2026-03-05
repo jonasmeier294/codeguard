@@ -59,7 +59,7 @@ export default function ReposPage() {
         <div>
           <h1 className="text-3xl font-bold">Repositories</h1>
           <p className="mt-1 text-muted-foreground">
-            Manage which repositories CodeGuard reviews.
+            Manage which repositories GuardBot reviews.
           </p>
         </div>
         <Button onClick={syncRepos} disabled={syncing} variant="outline" className="gap-2">

@@ -1,21 +1,21 @@
 <p align="center">
   <img src="https://img.shields.io/badge/AI--Powered-Code%20Reviews-blueviolet?style=for-the-badge" alt="AI-Powered Code Reviews" />
   <img src="https://img.shields.io/badge/GitHub-Bot-black?style=for-the-badge&logo=github" alt="GitHub Bot" />
-  <img src="https://img.shields.io/github/stars/jonasmeier294/codeguard?style=for-the-badge" alt="Stars" />
-  <img src="https://img.shields.io/github/license/jonasmeier294/codeguard?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/github/stars/jonasmeier294/guardbot?style=for-the-badge" alt="Stars" />
+  <img src="https://img.shields.io/github/license/jonasmeier294/guardbot?style=for-the-badge" alt="License" />
 </p>
 
-<h1 align="center">🛡️ CodeGuard</h1>
+<h1 align="center">🛡️ GuardBot</h1>
 <p align="center">
   <strong>AI-powered code reviews for every pull request.</strong><br/>
   Security vulnerabilities · Code smells · Performance issues — caught in seconds, not hours.
 </p>
 
 <p align="center">
-  <a href="https://codeguard.dev">Website</a> ·
+  <a href="https://guardbot.dev">Website</a> ·
   <a href="#quick-start">Quick Start</a> ·
   <a href="#features">Features</a> ·
-  <a href="https://github.com/jonasmeier294/codeguard/issues">Issues</a>
+  <a href="https://github.com/jonasmeier294/guardbot/issues">Issues</a>
 </p>
 
 ---
@@ -24,7 +24,7 @@
 
 ```
 1. You open a Pull Request
-2. CodeGuard analyzes the diff automatically  
+2. GuardBot analyzes the diff automatically  
 3. You get inline review comments in seconds
 ```
 
@@ -32,7 +32,7 @@
 - const query = `SELECT * FROM users WHERE id = ${userId}`
 + const query = db.prepare("SELECT * FROM users WHERE id = ?").bind(userId)
 
-# 🛡️ CodeGuard: SQL injection vulnerability detected.
+# 🛡️ GuardBot: SQL injection vulnerability detected.
 # Use parameterized queries instead of string interpolation.
 ```
 
@@ -51,16 +51,16 @@
 
 ### Install as GitHub App (recommended)
 
-1. Go to [codeguard.dev](https://codeguard.dev)
+1. Go to [guardbot.dev](https://guardbot.dev)
 2. Click "Install on GitHub"
 3. Select your repositories
-4. Done! CodeGuard will review your next PR automatically.
+4. Done! GuardBot will review your next PR automatically.
 
 ### Self-host
 
 ```bash
-git clone https://github.com/jonasmeier294/codeguard.git
-cd codeguard
+git clone https://github.com/jonasmeier294/guardbot.git
+cd guardbot
 cp .env.example .env
 # Fill in your GitHub App credentials
 npm install
@@ -77,7 +77,7 @@ npm run dev
 - **GitHub Integration:** Octokit + Webhooks
 - **Deployment:** Vercel
 
-## 📋 What CodeGuard catches
+## 📋 What GuardBot catches
 
 <details>
 <summary><strong>🔒 Security Issues</strong></summary>
@@ -126,12 +126,12 @@ npm run dev
 
 ## 🤝 Contributing
 
-Contributions are welcome! Check out our [issues](https://github.com/jonasmeier294/codeguard/issues) for good first tasks.
+Contributions are welcome! Check out our [issues](https://github.com/jonasmeier294/guardbot/issues) for good first tasks.
 
 ```bash
 # Fork & clone
-git clone https://github.com/YOUR_USERNAME/codeguard.git
-cd codeguard
+git clone https://github.com/YOUR_USERNAME/guardbot.git
+cd guardbot
 npm install
 cp .env.example .env
 npx prisma db push
@@ -144,13 +144,13 @@ MIT License — see [LICENSE](LICENSE) for details.
 
 ## ⭐ Star History
 
-If CodeGuard helps you ship better code, consider giving it a star! It helps others discover the project.
+If GuardBot helps you ship better code, consider giving it a star! It helps others discover the project.
 
-[![Star History Chart](https://api.star-history.com/svg?repos=jonasmeier294/codeguard&type=Date)](https://star-history.com/#jonasmeier294/codeguard&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=jonasmeier294/guardbot&type=Date)](https://star-history.com/#jonasmeier294/guardbot&Date)
 
 ---
 
 <p align="center">
   Built with ❤️ by an AI agent that reviews its own code.<br/>
-  <a href="https://codeguard.dev">codeguard.dev</a>
+  <a href="https://guardbot.dev">guardbot.dev</a>
 </p>

@@ -28,7 +28,7 @@ function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2">
           <Shield className="h-7 w-7 text-primary" />
-          <span className="text-xl font-bold">CodeGuard</span>
+          <span className="text-xl font-bold">GuardBot</span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
           <Link
@@ -82,7 +82,7 @@ function Hero() {
         </span>
       </h1>
       <p className="mt-6 max-w-2xl text-center text-lg text-muted-foreground md:text-xl">
-        CodeGuard automatically reviews every pull request for security
+        GuardBot automatically reviews every pull request for security
         vulnerabilities, code smells, and performance issues. Get actionable
         feedback before you merge.
       </p>
@@ -108,7 +108,7 @@ function Hero() {
               <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
               <div className="h-3 w-3 rounded-full bg-green-500/70" />
             </div>
-            <span className="ml-2">codeguard-review.ts</span>
+            <span className="ml-2">guardbot-review.ts</span>
           </div>
           <div className="mt-4 space-y-1">
             <p>
@@ -126,7 +126,7 @@ function Hero() {
             </p>
             <p className="mt-3 text-yellow-400">
               {"// "}
-              <Shield className="inline h-3 w-3" /> CodeGuard: SQL injection
+              <Shield className="inline h-3 w-3" /> GuardBot: SQL injection
               vulnerability detected. Use parameterized queries instead.
             </p>
           </div>
@@ -186,7 +186,7 @@ function Features() {
           Everything You Need for Better Code
         </h2>
         <p className="mt-4 text-muted-foreground">
-          CodeGuard catches what humans miss, in milliseconds.
+          GuardBot catches what humans miss, in milliseconds.
         </p>
       </div>
       <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -217,13 +217,13 @@ function HowItWorks() {
       step: "01",
       title: "Install the GitHub App",
       description:
-        "One click to add CodeGuard to your repositories. No configuration required.",
+        "One click to add GuardBot to your repositories. No configuration required.",
     },
     {
       step: "02",
       title: "Open a Pull Request",
       description:
-        "Push your code and create a PR as you normally would. CodeGuard activates automatically.",
+        "Push your code and create a PR as you normally would. GuardBot activates automatically.",
     },
     {
       step: "03",
@@ -379,7 +379,7 @@ function CTA() {
           Ship Better Code, Faster
         </h2>
         <p className="mt-4 text-lg text-muted-foreground">
-          Join thousands of developers who trust CodeGuard to catch bugs before
+          Join thousands of developers who trust GuardBot to catch bugs before
           they hit production.
         </p>
         <div className="mt-8">
@@ -404,7 +404,7 @@ function Footer() {
           <div>
             <div className="flex items-center gap-2">
               <Shield className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">CodeGuard</span>
+              <span className="text-lg font-bold">GuardBot</span>
             </div>
             <p className="mt-3 text-sm text-muted-foreground">
               AI-powered code reviews for every pull request.
@@ -499,7 +499,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-12 border-t border-border/50 pt-8 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} CodeGuard. All rights reserved.
+          &copy; {new Date().getFullYear()} GuardBot. All rights reserved.
         </div>
       </div>
     </footer>
