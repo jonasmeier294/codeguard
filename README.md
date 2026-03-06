@@ -49,20 +49,55 @@
 
 ## 🚀 Quick Start
 
-### Install as GitHub App (recommended)
+### Option 1: GitHub Action (recommended)
+
+Add this to `.github/workflows/guardbot.yml`:
+
+```yaml
+name: GuardBot Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jonasmeier294/guardbot@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          # or: openai_api_key: ${{ secrets.OPENAI_API_KEY }}
+```
+
+That's it! GuardBot will review every PR automatically.
+
+### Option 2: CLI
+
+```bash
+# Review a GitHub PR
+export ANTHROPIC_API_KEY=sk-ant-...  # or OPENAI_API_KEY
+npx guardbot review https://github.com/owner/repo/pull/123
+
+# Review a local diff
+git diff main > changes.diff
+npx guardbot review --diff changes.diff
+```
+
+### Option 3: Install as GitHub App
 
 1. Go to [guardbot.dev](https://guardbot.dev)
 2. Click "Install on GitHub"
 3. Select your repositories
 4. Done! GuardBot will review your next PR automatically.
 
-### Self-host
+### Option 4: Self-host
 
 ```bash
 git clone https://github.com/jonasmeier294/guardbot.git
 cd guardbot
 cp .env.example .env
-# Fill in your GitHub App credentials
+# Fill in your GitHub App credentials + ANTHROPIC_API_KEY or OPENAI_API_KEY
 npm install
 npx prisma db push
 npm run dev
@@ -75,6 +110,7 @@ npm run dev
 - **Auth:** NextAuth.js (GitHub OAuth)
 - **Database:** Prisma + SQLite (dev) / PostgreSQL (prod)
 - **GitHub Integration:** Octokit + Webhooks
+- **AI:** OpenAI GPT-4o / Anthropic Claude (BYOK)
 - **Deployment:** Vercel
 
 ## 📋 What GuardBot catches
@@ -116,7 +152,9 @@ npm run dev
 - [x] GitHub OAuth login
 - [x] PR webhook handler
 - [x] Pattern-based code analysis
-- [ ] AI-powered deep analysis (Claude/GPT)
+- [x] AI-powered deep analysis (Claude/GPT)
+- [x] GitHub Action
+- [x] CLI tool (`npx guardbot review`)
 - [ ] Custom rule configuration
 - [ ] Slack/Discord notifications
 - [ ] VS Code extension

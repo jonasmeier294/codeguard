@@ -4,7 +4,7 @@ export interface Finding {
   file: string;
   line?: number;
   severity: "critical" | "warning" | "info";
-  category: "security" | "code-smell" | "performance";
+  category: "security" | "code-smell" | "performance" | "best-practices";
   message: string;
   suggestion?: string;
 }

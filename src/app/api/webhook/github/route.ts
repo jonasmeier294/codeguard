@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Webhooks } from "@octokit/webhooks";
 import { prisma } from "@/lib/prisma";
 import { getOctokit, getPullRequestDiff, postReviewComment } from "@/lib/github";
-import { analyzeFiles, formatReviewComment } from "@/lib/analyzer";
+import { formatReviewComment } from "@/lib/analyzer";
+import { analyzeWithAI } from "@/lib/ai-analyzer";
 import { getReviewLimit } from "@/lib/plans";
 
 const webhooks = new Webhooks({
@@ -78,8 +79,8 @@ async function handlePullRequest(payload: {
       pull_request.number
     );
 
-    // Analyze the code
-    const findings = analyzeFiles(files);
+    // Analyze the code (AI-powered with regex fallback)
+    const findings = await analyzeWithAI(files);
 
     // Format and post the review
     const comment = formatReviewComment(findings);
