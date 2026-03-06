@@ -1,0 +1,21 @@
+# Example: Add GuardBot to your repository
+# Copy this file to .github/workflows/guardbot.yml
+
+name: GuardBot Code Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jonasmeier294/guardbot@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          openai_key: ${{ secrets.OPENAI_KEY }}  # Optional: remove for pattern-matching only
+          review_level: standard

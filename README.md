@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://img.shields.io/badge/AI--Powered-Code%20Reviews-blueviolet?style=for-the-badge" alt="AI-Powered Code Reviews" />
-  <img src="https://img.shields.io/badge/GitHub-Bot-black?style=for-the-badge&logo=github" alt="GitHub Bot" />
+  <img src="https://img.shields.io/badge/GitHub-Action-black?style=for-the-badge&logo=github" alt="GitHub Action" />
   <img src="https://img.shields.io/github/stars/jonasmeier294/guardbot?style=for-the-badge" alt="Stars" />
   <img src="https://img.shields.io/github/license/jonasmeier294/guardbot?style=for-the-badge" alt="License" />
 </p>
@@ -8,15 +8,46 @@
 <h1 align="center">🛡️ GuardBot</h1>
 <p align="center">
   <strong>AI-powered code reviews for every pull request.</strong><br/>
-  Security vulnerabilities · Code smells · Performance issues — caught in seconds, not hours.
+  Security vulnerabilities · Bugs · Performance issues — caught in seconds, not hours.
 </p>
 
 <p align="center">
   <a href="https://guardbot.dev">Website</a> ·
-  <a href="#quick-start">Quick Start</a> ·
-  <a href="#features">Features</a> ·
+  <a href="#-quick-start-30-seconds">Quick Start</a> ·
+  <a href="#-features">Features</a> ·
+  <a href="#-cli">CLI</a> ·
   <a href="https://github.com/jonasmeier294/guardbot/issues">Issues</a>
 </p>
+
+---
+
+## ⚡ Quick Start (30 seconds)
+
+Add this to `.github/workflows/guardbot.yml` in your repo:
+
+```yaml
+name: GuardBot Code Review
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jonasmeier294/guardbot@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          openai_key: ${{ secrets.OPENAI_KEY }}  # Optional — works without it too
+```
+
+That's it. Open a PR and GuardBot reviews it automatically.
+
+> **No API key?** GuardBot works out of the box with built-in pattern matching. Add an OpenAI or Anthropic key for deeper AI-powered analysis.
 
 ---
 
@@ -24,8 +55,8 @@
 
 ```
 1. You open a Pull Request
-2. GuardBot analyzes the diff automatically  
-3. You get inline review comments in seconds
+2. GuardBot analyzes every changed file
+3. You get a detailed review comment in seconds
 ```
 
 ```diff
@@ -36,18 +67,21 @@
 # Use parameterized queries instead of string interpolation.
 ```
 
+<!-- TODO: Add demo GIF here -->
+
+---
+
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🔒 **Security Scanning** | SQL injection, XSS, hardcoded secrets, OWASP Top 10 |
-| 🐛 **Code Smell Detection** | Dead code, complexity, anti-patterns, type safety |
-| ⚡ **Performance Tips** | N+1 queries, unnecessary re-renders, memory leaks |
-| 💬 **Inline PR Comments** | Reviews appear directly on your pull request |
-| 🔐 **Privacy First** | Only reads the diff — your code is never stored |
-| 📊 **Team Analytics** | Track code quality trends over time |
+- 🔒 **Security Scanning** — SQL injection, XSS, hardcoded secrets, OWASP Top 10
+- 🐛 **Bug Detection** — Logic errors, null risks, race conditions, error handling gaps
+- ⚡ **Performance Tips** — N+1 queries, memory leaks, unnecessary re-renders
+- 👃 **Code Smells** — Dead code, complexity, anti-patterns, type safety
+- 💡 **Smart Suggestions** — Better approaches, missing edge cases, refactoring tips
+- 🔐 **Privacy First** — Only reads the diff. Your code is never stored. BYOK (Bring Your Own Key).
+- ⚙️ **Configurable** — `.guardbot.yml` for per-repo settings, custom rules (coming soon)
 
-## 🚀 Quick Start
+### Two Modes
 
 ### Option 1: GitHub Action (recommended)
 
@@ -86,10 +120,7 @@ npx guardbot review --diff changes.diff
 
 ### Option 3: Install as GitHub App
 
-1. Go to [guardbot.dev](https://guardbot.dev)
-2. Click "Install on GitHub"
-3. Select your repositories
-4. Done! GuardBot will review your next PR automatically.
+Both modes run together when an API key is provided — patterns catch the obvious stuff, AI catches the subtle stuff.
 
 ### Option 4: Self-host
 
@@ -103,7 +134,7 @@ npx prisma db push
 npm run dev
 ```
 
-## 🏗️ Tech Stack
+---
 
 - **Framework:** Next.js 15 (App Router)
 - **UI:** Tailwind CSS + shadcn/ui
@@ -116,41 +147,70 @@ npm run dev
 ## 📋 What GuardBot catches
 
 <details>
-<summary><strong>🔒 Security Issues</strong></summary>
+<summary><strong>🔒 Security (critical)</strong></summary>
 
-- `eval()` usage — code injection risk
-- `innerHTML` assignment — XSS vulnerability
+- `eval()` — code injection
+- `innerHTML` assignment — XSS
 - SQL string interpolation — SQL injection
-- Hardcoded secrets/API keys
+- Hardcoded secrets / API keys
 - `document.write()` — XSS risk
 - `dangerouslySetInnerHTML` without sanitization
+- *With AI:* Auth bypass, SSRF, path traversal, insecure crypto, and more
 
 </details>
 
 <details>
-<summary><strong>🐛 Code Smells</strong></summary>
+<summary><strong>🐛 Bugs (warning)</strong></summary>
+
+- Empty `.catch()` handlers — swallowed errors
+- Loose equality (`==`) — type coercion bugs
+- *With AI:* Null pointer risks, race conditions, logic errors, off-by-one
+
+</details>
+
+<details>
+<summary><strong>⚡ Performance (info)</strong></summary>
+
+- Sequential `await` in loops — N+1 problem
+- `JSON.parse(JSON.stringify())` — slow deep clone
+- Runtime RegExp compilation in hot paths
+- *With AI:* Unnecessary re-renders, memory leaks, inefficient algorithms
+
+</details>
+
+<details>
+<summary><strong>👃 Code Smells (info)</strong></summary>
 
 - `console.log` left in code
-- TODO/FIXME comments in new code
-- TypeScript `any` type usage
-- Empty `.catch()` handlers
+- TODO/FIXME in new code
+- TypeScript `any` type
+- *With AI:* Complex functions, poor naming, missing docs, anti-patterns
 
 </details>
 
-<details>
-<summary><strong>⚡ Performance</strong></summary>
+---
 
-- Sequential `await` in loops (N+1 problem)
-- RegExp created inside functions
-- `JSON.parse(JSON.stringify())` deep clone
+## 🏗️ Architecture
 
-</details>
+```
+guardbot/
+├── action/          # GitHub Action (Node.js)
+│   └── src/
+│       ├── index.ts        # Action entry point
+│       └── ai-analyzer.ts  # AI + pattern analysis engine
+├── cli/             # CLI tool
+│   └── guardbot.ts  # npx guardbot
+├── src/             # Web dashboard (Next.js)
+│   ├── app/         # Pages & API routes
+│   ├── components/  # UI components
+│   └── lib/         # Core libraries
+├── action.yml       # GitHub Action manifest
+├── .guardbot.yml    # Example config
+└── README.md
+```
 
 ## 🗺️ Roadmap
 
-- [x] Landing page & dashboard
-- [x] GitHub OAuth login
-- [x] PR webhook handler
 - [x] Pattern-based code analysis
 - [x] AI-powered deep analysis (Claude/GPT)
 - [x] GitHub Action
@@ -159,16 +219,15 @@ npm run dev
 - [ ] Slack/Discord notifications
 - [ ] VS Code extension
 - [ ] GitLab & Bitbucket support
-- [ ] Team analytics dashboard
-- [ ] Monorepo support
+- [ ] Slack/Discord notifications
+- [ ] Rule marketplace
 
 ## 🤝 Contributing
 
-Contributions are welcome! Check out our [issues](https://github.com/jonasmeier294/guardbot/issues) for good first tasks.
+Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ```bash
-# Fork & clone
-git clone https://github.com/YOUR_USERNAME/guardbot.git
+git clone https://github.com/jonasmeier294/guardbot.git
 cd guardbot
 npm install
 cp .env.example .env
@@ -176,19 +235,21 @@ npx prisma db push
 npm run dev
 ```
 
+Good first issues are tagged with [`good first issue`](https://github.com/jonasmeier294/guardbot/labels/good%20first%20issue).
+
 ## 📄 License
 
-MIT License — see [LICENSE](LICENSE) for details.
+[MIT](LICENSE) — use it however you want.
 
-## ⭐ Star History
+## ⭐ Support
 
-If GuardBot helps you ship better code, consider giving it a star! It helps others discover the project.
+If GuardBot saves you time, give it a star! It helps others discover the project.
 
 [![Star History Chart](https://api.star-history.com/svg?repos=jonasmeier294/guardbot&type=Date)](https://star-history.com/#jonasmeier294/guardbot&Date)
 
 ---
 
 <p align="center">
-  Built with ❤️ by an AI agent that reviews its own code.<br/>
+  <strong>Every PR deserves a second pair of eyes.</strong><br/>
   <a href="https://guardbot.dev">guardbot.dev</a>
 </p>

@@ -1,0 +1,43 @@
+# GuardBot Configuration
+# Place this file in your repo root to customize reviews.
+# Docs: https://guardbot.dev/docs/config
+
+# Review depth: quick, standard, thorough
+level: standard
+
+# How to post results: comment, review, check-run
+post_as: comment
+
+# Fail CI on certain severity levels: none, critical, warning, info
+fail_on: none
+
+# Files to ignore (glob patterns)
+ignore:
+  - "*.lock"
+  - "*.min.js"
+  - "*.min.css"
+  - "dist/**"
+  - "build/**"
+  - "node_modules/**"
+  - "*.generated.*"
+  - "__snapshots__/**"
+
+# Maximum files to review per PR
+max_files: 30
+
+# Custom rules (coming soon)
+# rules:
+#   - id: no-console
+#     severity: warning
+#     pattern: "console\\.(log|debug)"
+#     message: "Remove console statements"
+#
+#   - id: require-error-handling
+#     severity: warning
+#     pattern: "\\.catch\\(\\s*\\)"
+#     message: "Don't swallow errors"
+
+# AI model settings (override action inputs)
+# ai:
+#   provider: openai  # openai or anthropic
+#   model: gpt-4o-mini
